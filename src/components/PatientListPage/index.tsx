@@ -13,6 +13,7 @@ import { PatientFormValues, Patient } from "../../types";
 import AddPatientModal from "../AddPatientModal";
 import HealthRatingBar from "../HealthRatingBar";
 import { createPatient } from "../../services/patients";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   patients: Patient[];
@@ -22,6 +23,7 @@ interface Props {
 const PatientListPage = ({ patients, setPatients }: Props) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [error, setError] = useState<string | undefined>(undefined);
+  const navigate = useNavigate();
 
   const openModal = (): void => setModalOpen(true);
 
@@ -63,16 +65,23 @@ const PatientListPage = ({ patients, setPatients }: Props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {patients.map((patient: Patient) => (
-            <TableRow key={patient._id}>
-              <TableCell>{patient.name}</TableCell>
-              <TableCell>{patient.gender}</TableCell>
-              <TableCell>{patient.occupation}</TableCell>
-              <TableCell>
-                <HealthRatingBar showText={false} rating={1} />
-              </TableCell>
-            </TableRow>
-          ))}
+          {patients &&
+            patients.map((patient: Patient) => (
+              <TableRow key={patient._id}>
+                <TableCell
+                  onClick={() => {
+                    navigate(`/${patient._id}`);
+                  }}
+                >
+                  {patient.name}
+                </TableCell>
+                <TableCell>{patient.gender}</TableCell>
+                <TableCell>{patient.occupation}</TableCell>
+                <TableCell>
+                  <HealthRatingBar showText={false} rating={1} />
+                </TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
       <AddPatientModal
