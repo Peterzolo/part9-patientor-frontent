@@ -9,14 +9,16 @@ export const getAllPatients = async () => {
   return data;
 };
 
-// const newUrl = "http://localhost:5000/api/patients/";
-
 export const getPatient = async (id: string) => {
-  console.log("GOT HERE", id);
-  const { data } = await axios.get<Patient>(`${apiBaseUrl}/patients/${id}`);
-  console.log("RESPONSE", data);
+  try {
+    const { data } = await axios.get<Patient>(`${apiBaseUrl}/patients/${id}`);
+    console.log("RESPONSE", data);
 
-  return data;
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 };
 
 export const createPatient = async (

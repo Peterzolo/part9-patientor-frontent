@@ -3,11 +3,11 @@ import { getPatient } from "../../services/patients";
 import { useParams } from "react-router-dom";
 
 const PatientDetails = () => {
-  const params = useParams();
-  const id = params;
-  console.log("ID", id);
+  const { id } = useParams();
+
+  console.log("HGHGHGHG", id);
+
   const [patient, setPatient] = useState("");
-  console.log(patient);
 
   useEffect(() => {
     const fetchPatient = async () => {
@@ -19,7 +19,7 @@ const PatientDetails = () => {
       }
     };
     fetchPatient();
-  }, []);
+  }, [id]);
 
   return (
     <div>
