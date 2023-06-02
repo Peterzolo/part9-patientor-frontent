@@ -69,6 +69,7 @@ const PatientListPage = ({ patients, setPatients }: Props) => {
             patients.map((patient: Patient) => (
               <TableRow key={patient._id}>
                 <TableCell
+                  style={{ cursor: "pointer", color: "blue" }}
                   onClick={() => {
                     navigate(`/${patient._id}`);
                   }}
