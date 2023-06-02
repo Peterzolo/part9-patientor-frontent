@@ -12,7 +12,7 @@ export const getAllPatients = async () => {
 export const getPatient = async (id: string) => {
   try {
     const { data } = await axios.get<Patient>(`${apiBaseUrl}/patients/${id}`);
-    console.log("RESPONSE", data);
+    console.log("PATIENTS", data);
 
     return data;
   } catch (error) {
