@@ -26,6 +26,10 @@ const Entry = ({ entries }) => {
               <div className="entry-item">Date: {entry.discharge.date}</div>
             </div>
             <div className="item-wrap">
+              <div className="entry-title">Hospital</div>
+              <div className="entry-item">{entry.type}</div>
+            </div>
+            <div className="item-wrap">
               <div className="entry-title">Specialist</div>
               <div className="entry-item">{entry.specialist}</div>
             </div>
