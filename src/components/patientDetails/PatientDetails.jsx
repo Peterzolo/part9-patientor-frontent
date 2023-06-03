@@ -3,12 +3,18 @@ import { getPatient } from "../../services/patients";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Entry from "./Entry";
+import AddEntryModal from "./AddEntryModal";
 
 const PatientDetails = () => {
   const { id } = useParams();
 
   const [patient, setPatient] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   console.log("DETAILS OF PATIENTS", patient);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
 
   useEffect(() => {
     const fetchPatient = async () => {
@@ -42,7 +48,12 @@ const PatientDetails = () => {
         <div className="item-title">Gender</div>
         <div className="item">{patient.gender}</div>
       </div>
-
+      <div className="add-entry-wrap">
+        <button className="add-entry-btn" onClick={openModal}>
+          Add Entry
+        </button>{" "}
+      </div>
+      {isModalOpen && <AddEntryModal onClose={() => setIsModalOpen(false)} />}{" "}
       <div className="entry-container">
         <Entry entries={patient.entries} />
       </div>
@@ -70,6 +81,9 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: space-around;
     padding: 10px;
+  }
+  .add-entry-wrap {
+    background-color: red;
   }
 
   .entries-header {
