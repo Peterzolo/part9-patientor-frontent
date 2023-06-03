@@ -1,5 +1,11 @@
 import axios from "axios";
-import { Diagnosis, Patient, PatientFormValues } from "../types";
+import {
+  Diagnosis,
+  OccupationalHealthcareEntry,
+  Patient,
+  PatientFormValues,
+  ReturnedHealthEntry,
+} from "../types";
 
 import { apiBaseUrl } from "../constants";
 
@@ -33,6 +39,23 @@ export const createPatient = async (
   } catch (error: any) {
     console.log(error);
     return error;
+  }
+};
+
+export const addEntry = async (
+  object: OccupationalHealthcareEntry,
+  id: string
+): Promise<ReturnedHealthEntry> => {
+  try {
+    const { data } = await axios.post<OccupationalHealthcareEntry>(
+      `${apiBaseUrl}/patients/${id}/entries`,
+      object
+    );
+
+    return data;
+  } catch (error: any) {
+    console.log(error);
+    return error.message;
   }
 };
 
