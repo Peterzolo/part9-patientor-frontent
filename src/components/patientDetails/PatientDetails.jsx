@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getPatient } from "../../services/patients";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import Entry from "./Entry";
 
 const PatientDetails = () => {
   const { id } = useParams();
@@ -42,32 +43,9 @@ const PatientDetails = () => {
         <div className="item">{patient.gender}</div>
       </div>
 
-      <h4 className="entries-header">Entries:</h4>
-
-      {patient.entries &&
-        patient.entries.map((entry) => (
-          <div className="entry-wrap" key={entry._id}>
-            <div className="entry-wrap" key={entry._id}>
-              <div className="entry-title">Date</div>
-              <div className="entry-item">{entry.date}</div>
-            </div>
-            <div className="entry-title">Description</div>
-            <div className="entry-item">{entry.description}</div>
-            <div className="diag-title">Diagnose Code</div>
-            {entry.diagnoseCodes &&
-              entry.diagnoseCodes.map((item, index) => (
-                <div key={index}>
-                  <div className="diag-item">
-                    <ul>
-                      <li>{item}</li>
-                    </ul>
-                  </div>
-                </div>
-              ))}
-
-            {}
-          </div>
-        ))}
+      <div className="entry-container">
+        <Entry entries={patient.entries} />
+      </div>
     </Wrapper>
   );
 };
