@@ -1,26 +1,33 @@
 import React, { useState } from "react";
+import { OccupationalHealthcareEntry } from "../../types";
 
-const AddEntryModal = ({ onClose, onSubmit }) => {
-  const [date, setDate] = useState("");
-  const [type, setType] = useState("");
-  const [specialist, setSpecialist] = useState("");
-  const [diagnoseCodes, setDiagnoseCodes] = useState([]);
-  const [description, setDescription] = useState("");
+interface AddEntryModalProps {
+  onSubmit: (entry: OccupationalHealthcareEntry) => void;
+  onClose: () => void;
+}
 
-  const handleDiagnoseCodesChange = (e) => {
-    const codes = e.target.value.split(",");
-    setDiagnoseCodes(codes.map((code) => code.trim()));
+const AddEntryModal: React.FC<AddEntryModalProps> = ({ onSubmit, onClose }) => {
+  const [entry, setEntry] = useState<OccupationalHealthcareEntry>({
+    date: "",
+    type: "",
+    specialist: "",
+    diagnoseCodes: [], // Provide initial value for diagnoseCodes array
+    description: "",
+    healthCheckRating: 0,
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setEntry((prevEntry) => ({
+      ...prevEntry,
+      [name]: name === "diagnoseCodes" ? value.split(",") : value, // Handle changes in diagnoseCodes array
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const entry = {
-      date,
-      type,
-      specialist,
-      diagnoseCodes,
-      description,
-    };
     onSubmit(entry);
   };
 
@@ -31,40 +38,50 @@ const AddEntryModal = ({ onClose, onSubmit }) => {
         <div>
           <label>Date:</label>
           <input
-            type="text"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
+            type="date"
+            name="date"
+            value={entry.date}
+            onChange={handleChange}
+            required
           />
         </div>
         <div>
           <label>Type:</label>
           <input
             type="text"
-            value={type}
-            onChange={(e) => setType(e.target.value)}
+            name="type"
+            value={entry.type}
+            onChange={handleChange}
+            required
           />
         </div>
         <div>
           <label>Specialist:</label>
           <input
             type="text"
-            value={specialist}
-            onChange={(e) => setSpecialist(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>Diagnose Codes (comma-separated):</label>
-          <input
-            type="text"
-            value={diagnoseCodes.join(", ")}
-            onChange={handleDiagnoseCodesChange}
+            name="specialist"
+            value={entry.specialist}
+            onChange={handleChange}
+            required
           />
         </div>
         <div>
           <label>Description:</label>
           <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            name="description"
+            value={entry.description}
+            onChange={handleChange}
+            required
+          ></textarea>
+        </div>
+        <div>
+          <label>Health Check Rating:</label>
+          <input
+            type="number"
+            name="healthCheckRating"
+            value={entry.healthCheckRating}
+            onChange={handleChange}
+            required
           />
         </div>
         <div>
