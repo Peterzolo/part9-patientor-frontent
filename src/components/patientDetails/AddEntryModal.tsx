@@ -10,6 +10,7 @@ interface AddEntryModalProps {
 }
 
 const AddEntryModal: React.FC<AddEntryModalProps> = ({ onSubmit, onClose }) => {
+  const [error, setError] = useState<string | null>(null);
   const [entry, setEntry] = useState<OccupationalHealthcareEntry>({
     date: "",
     type: "",
@@ -37,8 +38,8 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ onSubmit, onClose }) => {
       const addedEntry = await addEntry(entry, id as string);
       console.log("Added entry:", addedEntry);
       onClose();
-    } catch (error) {
-      console.error("Error adding entry:", error);
+    } catch (error: any) {
+      setError("Error adding entry: " + error.message);
     }
   };
 
@@ -50,6 +51,7 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ onSubmit, onClose }) => {
     <AddModalWrap>
       <h3 className="add-entry-title">Add Entry</h3>
       <form onSubmit={handleSubmit}>
+        {error && <p className="error-message">{error}</p>}
         <div className="input-wrap">
           <label>Date:</label>
           <input
@@ -121,7 +123,7 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ onSubmit, onClose }) => {
             Add Entry
           </button>
           <button type="button" className="close-btn" onClick={handleClose}>
-            Close
+            Cancel
           </button>
         </div>
       </form>
@@ -170,8 +172,8 @@ const AddModalWrap = styled.div`
       border: none;
     }
     .close-btn {
-      background-color: #f5f5f5;
-      color: #de0f0f;
+      background-color: #de0f0f;
+      color: #f5f5f5;
       padding: 10px;
       border-radius: 10px;
       border: none;
