@@ -83,7 +83,16 @@ const Wrapper = styled.div`
     padding: 10px;
   }
   .add-entry-wrap {
-    background-color: red;
+    display: flex;
+    justify-content: flex-end;
+    .add-entry-btn {
+      background-color: #0958d9;
+      color: white;
+      border: none;
+      padding: 10px;
+      width: 100px;
+      border-radius: 10px;
+    }
   }
 
   .entries-header {

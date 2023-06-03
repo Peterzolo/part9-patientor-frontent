@@ -11,7 +11,7 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ onSubmit, onClose }) => {
     date: "",
     type: "",
     specialist: "",
-    diagnoseCodes: [], // Provide initial value for diagnoseCodes array
+    diagnoseCodes: [],
     description: "",
     healthCheckRating: 0,
   });
@@ -22,7 +22,7 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ onSubmit, onClose }) => {
     const { name, value } = e.target;
     setEntry((prevEntry) => ({
       ...prevEntry,
-      [name]: name === "diagnoseCodes" ? value.split(",") : value, // Handle changes in diagnoseCodes array
+      [name]: name === "diagnoseCodes" ? value.split(",") : value,
     }));
   };
 
