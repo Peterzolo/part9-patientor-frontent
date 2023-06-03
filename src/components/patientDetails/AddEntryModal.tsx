@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { OccupationalHealthcareEntry } from "../../types";
 import styled from "styled-components";
+import { addEntry } from "../../services/patients";
+import { useParams } from "react-router-dom";
 
 interface AddEntryModalProps {
   onSubmit: (entry: OccupationalHealthcareEntry) => void;
@@ -17,6 +19,8 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ onSubmit, onClose }) => {
     healthCheckRating: 0,
   });
 
+  const { id } = useParams();
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -27,9 +31,15 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ onSubmit, onClose }) => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(entry);
+    try {
+      const addedEntry = await addEntry(entry, id as string);
+      console.log("Added entry:", addedEntry);
+      onClose();
+    } catch (error) {
+      console.error("Error adding entry:", error);
+    }
   };
 
   const handleClose = () => {
@@ -80,6 +90,17 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ onSubmit, onClose }) => {
             type="number"
             name="healthCheckRating"
             value={entry.healthCheckRating}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="input-wrap">
+          <label>diagnoseCodes:</label>
+          <input
+            className="input"
+            type="text"
+            name="diagnoseCodes"
+            value={entry.diagnoseCodes}
             onChange={handleChange}
             required
           />
@@ -141,6 +162,20 @@ const AddModalWrap = styled.div`
     padding: 20px;
     display: flex;
     justify-content: space-between;
+    .add-btn {
+      background-color: #002c8c;
+      color: white;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+    }
+    .close-btn {
+      background-color: #f5f5f5;
+      color: #de0f0f;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+    }
   }
 `;
 

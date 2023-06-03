@@ -21,9 +21,9 @@ const Entry = ({ entries }) => {
             <div className="item-wrap">
               <div className="entry-title">Discharge</div>
               <div className="entry-item">
-                Criteria: {entry.discharge.criteria}
+                Criteria: {entry?.discharge?.criteria}
               </div>
-              <div className="entry-item">Date: {entry.discharge.date}</div>
+              <div className="entry-item">Date: {entry?.discharge?.date}</div>
             </div>
             <div className="item-wrap">
               <div className="entry-title">Hospital</div>
