@@ -10,7 +10,6 @@ const PatientDetails = () => {
 
   const [patient, setPatient] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log("DETAILS OF PATIENTS", patient);
 
   const openModal = () => {
     setIsModalOpen(true);

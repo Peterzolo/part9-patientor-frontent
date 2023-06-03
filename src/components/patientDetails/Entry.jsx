@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 const Entry = ({ entries }) => {
-  console.log("ENTRIES", entries);
   return (
     <EntryWrap>
       <h4 className="entries-header">Entries:</h4>

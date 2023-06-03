@@ -35,8 +35,8 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ onSubmit, onClose }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const addedEntry = await addEntry(entry, id as string);
-      console.log("Added entry:", addedEntry);
+      await addEntry(entry, id as string);
+
       onClose();
     } catch (error: any) {
       setError("Error adding entry: " + error.message);
