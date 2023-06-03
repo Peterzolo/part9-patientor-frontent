@@ -9,7 +9,7 @@ import {
   TableRow,
   TableBody,
 } from "@mui/material";
-import { PatientFormValues, Patient } from "../../types";
+import { PatientFormValues, Patient, Diagnosis } from "../../types";
 import AddPatientModal from "../AddPatientModal";
 import HealthRatingBar from "../HealthRatingBar";
 import { createPatient } from "../../services/patients";
@@ -17,10 +17,17 @@ import { useNavigate } from "react-router-dom";
 
 interface Props {
   patients: Patient[];
+  diagnosis: Diagnosis[];
   setPatients: React.Dispatch<React.SetStateAction<Patient[]>>;
+  setDiagnosis: React.Dispatch<React.SetStateAction<Diagnosis[]>>;
 }
 
-const PatientListPage = ({ patients, setPatients }: Props) => {
+const PatientListPage = ({
+  patients,
+  setPatients,
+  diagnosis,
+  setDiagnosis,
+}: Props) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [error, setError] = useState<string | undefined>(undefined);
   const navigate = useNavigate();
@@ -31,7 +38,7 @@ const PatientListPage = ({ patients, setPatients }: Props) => {
     setModalOpen(false);
     setError(undefined);
   };
-
+  console.log("DIAGNOSIS", diagnosis);
   const submitNewPatient = async (values: PatientFormValues): Promise<void> => {
     try {
       const patient = await createPatient(values);

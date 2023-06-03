@@ -7,8 +7,7 @@ const PatientDetails = () => {
   const { id } = useParams();
 
   const [patient, setPatient] = useState("");
-
-  console.log("SINGLE PATIENT", patient);
+  console.log("DETAILS OF PATIENTS", patient);
 
   useEffect(() => {
     const fetchPatient = async () => {
@@ -54,12 +53,19 @@ const PatientDetails = () => {
             </div>
             <div className="entry-title">Description</div>
             <div className="entry-item">{entry.description}</div>
+            <div className="diag-title">Diagnose Code</div>
             {entry.diagnoseCodes &&
               entry.diagnoseCodes.map((item, index) => (
                 <div key={index}>
-                  <div className="diag-title">Diagnose Code</div>
+                  <div className="diag-item">
+                    <ul>
+                      <li>{item}</li>
+                    </ul>
+                  </div>
                 </div>
               ))}
+
+            {}
           </div>
         ))}
     </Wrapper>
