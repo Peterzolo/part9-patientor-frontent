@@ -38,7 +38,7 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ onSubmit, onClose }) => {
 
   return (
     <AddModalWrap>
-      <h3>Add Entry</h3>
+      <h3 className="add-entry-title">Add Entry</h3>
       <form onSubmit={handleSubmit}>
         <div className="input-wrap">
           <label>Date:</label>
@@ -51,9 +51,10 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ onSubmit, onClose }) => {
             required
           />
         </div>
-        <div>
+        <div className="input-wrap">
           <label>Type:</label>
           <input
+            className="input"
             type="text"
             name="type"
             value={entry.type}
@@ -61,9 +62,10 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ onSubmit, onClose }) => {
             required
           />
         </div>
-        <div>
+        <div className="input-wrap">
           <label>Specialist:</label>
           <input
+            className="input"
             type="text"
             name="specialist"
             value={entry.specialist}
@@ -71,18 +73,10 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ onSubmit, onClose }) => {
             required
           />
         </div>
-        <div>
-          <label>Description:</label>
-          <textarea
-            name="description"
-            value={entry.description}
-            onChange={handleChange}
-            required
-          ></textarea>
-        </div>
-        <div>
+        <div className="input-wrap">
           <label>Health Check Rating:</label>
           <input
+            className="input"
             type="number"
             name="healthCheckRating"
             value={entry.healthCheckRating}
@@ -90,9 +84,22 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ onSubmit, onClose }) => {
             required
           />
         </div>
-        <div>
-          <button type="submit">Add Entry</button>
-          <button type="button" onClick={handleClose}>
+        <div className="input-wrap">
+          <label>Description:</label>
+          <textarea
+            className="text-area"
+            name="description"
+            value={entry.description}
+            onChange={handleChange}
+            required
+          ></textarea>
+        </div>
+
+        <div className="add-btn-wrap">
+          <button type="submit" className="add-btn">
+            Add Entry
+          </button>
+          <button type="button" className="close-btn" onClick={handleClose}>
             Close
           </button>
         </div>
@@ -104,8 +111,37 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ onSubmit, onClose }) => {
 const AddModalWrap = styled.div`
   width: 500px;
   padding: 20px;
-  background-color: #bae0ff;
+  background-color: #f0f0f0;
   border-radius: 10px;
+
+  .add-entry-title {
+    text-align: center;
+    color: #262726;
+  }
+  .input-wrap {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+    padding: 10px;
+    .input {
+      margin-top: 5px;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+    }
+    .text-area {
+      margin-top: 5px;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+    }
+  }
+  .add-btn-wrap {
+    margin-top: 15px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
 `;
 
 export default AddEntryModal;
