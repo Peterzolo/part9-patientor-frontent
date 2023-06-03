@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { OccupationalHealthcareEntry } from "../../types";
+import styled from "styled-components";
 
 interface AddEntryModalProps {
   onSubmit: (entry: OccupationalHealthcareEntry) => void;
@@ -31,13 +32,18 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ onSubmit, onClose }) => {
     onSubmit(entry);
   };
 
+  const handleClose = () => {
+    onClose();
+  };
+
   return (
-    <div>
+    <AddModalWrap>
       <h3>Add Entry</h3>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="input-wrap">
           <label>Date:</label>
           <input
+            className="input"
             type="date"
             name="date"
             value={entry.date}
@@ -86,13 +92,20 @@ const AddEntryModal: React.FC<AddEntryModalProps> = ({ onSubmit, onClose }) => {
         </div>
         <div>
           <button type="submit">Add Entry</button>
-          <button type="button" onClick={onClose}>
+          <button type="button" onClick={handleClose}>
             Close
           </button>
         </div>
       </form>
-    </div>
+    </AddModalWrap>
   );
 };
+
+const AddModalWrap = styled.div`
+  width: 500px;
+  padding: 20px;
+  background-color: #bae0ff;
+  border-radius: 10px;
+`;
 
 export default AddEntryModal;
